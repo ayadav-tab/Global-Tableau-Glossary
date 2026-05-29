@@ -179,7 +179,7 @@
     const tbody = document.getElementById('tableBody');
 
     tbody.innerHTML = '';
-    let rows=_filterrows();
+    let rows=filterrows();
     document.getElementById('totalCount').textContent = rows.length;
     document.getElementById('shownCount').textContent = rows.length;
     document.getElementById('totalmetrics').textContent = rows.length;
