@@ -183,7 +183,14 @@
     document.getElementById('totalCount').textContent = rows.length;
     document.getElementById('shownCount').textContent = rows.length;
     document.getElementById('totalmetrics').textContent = rows.length;
-
+    const distinctDataSources = [
+  ...new Set(
+    rows
+      .map(x => x.data_source)
+      .filter(x => x != null && x !== '')
+  )
+];
+  document.getElementById('source_count').textContent = distinctDataSources.length;
     let currentGroup = null;
 
     let groupCounter = -1;
