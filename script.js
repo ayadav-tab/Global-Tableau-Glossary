@@ -61,7 +61,7 @@
       console.log("No sheet selected yet");
       return;
     }
-    $('.sheetname')[0].textContent = sheetName;
+   // $('.sheetname')[0].textContent = sheetName;
     worksheet = tableau.extensions.dashboardContent.dashboard.worksheets
       .find(ws => ws.name === sheetName);
 
