@@ -61,6 +61,13 @@
       return;
     }
     $('#dashboard_name')[0].innerHTML = tableau.extensions.settings.get("dashboard_name");
+    $('#source')[0].innerHTML = tableau.extensions.settings.get("source");
+    $('#major_source')[0].innerHTML =tableau.extensions.settings.get("source");
+    $('#owner')[0].innerHTML = tableau.extensions.settings.get("owner");
+    $('#techowner')[0].innerHTML = tableau.extensions.settings.get("techowner");
+    $('#department')[0].innerHTML = tableau.extensions.settings.get("department");
+    $('#refresh')[0].innerHTML = tableau.extensions.settings.get("refresh");
+    $('#staticfile')[0].innerHTML = tableau.extensions.settings.get("staticfile");
     // console.log("Loaded worksheet:", sheetName);
     //if (sheetName) { $('#configure').hide(); }
 
@@ -166,8 +173,6 @@
 
   }
 
-
-
   function renderTable() {
 
     const tbody = document.getElementById('tableBody');
@@ -176,7 +181,7 @@
 
     document.getElementById('totalCount').textContent = rows.length;
     document.getElementById('shownCount').textContent = rows.length;
-
+    document.getElementById('totalmetrics').textContent = rows.length;
 
     let currentGroup = null;
 

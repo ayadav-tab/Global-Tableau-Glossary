@@ -119,7 +119,7 @@
     <div class="topbar-left">
       <div class="topbar-eyebrow">Tableau Glossary</div>
       <div class="topbar-title" id="dashboard_name">Direct Response Fundraising</div>
-      <div class="topbar-sub">Owner: Fundraising Team &nbsp;·&nbsp; Source: CRM &nbsp;·&nbsp; Refresh: Daily 5:30 PM ET</div>
+      <div class="topbar-sub">Owner: <span id="owner">Fundraising Team</span> &nbsp;·&nbsp; Source: <span id="major_source">CRM</span> &nbsp;·&nbsp; Refresh: <span id="refresh"></span></div>
     </div>
   </div>
 
@@ -138,10 +138,10 @@
 
   <div class="content">
     <div class="stats-row">
-      <div class="stat-card"><div class="stat-accent" style="background:var(--blue)"></div><div><div class="stat-val">8</div><div class="stat-lbl">Total Metrics</div></div></div>
-      <div class="stat-card"><div class="stat-accent" style="background:var(--cyan)"></div><div><div class="stat-val">1</div><div class="stat-lbl">Data Sources</div></div></div>
-      <div class="stat-card"><div class="stat-accent" style="background:#0B6E56"></div><div><div class="stat-val" style="font-size:16px;padding-top:4px">Daily 5:30 PM</div><div class="stat-lbl">Refresh</div></div></div>
-      <div class="stat-card"><div class="stat-accent" style="background:var(--opal)"></div><div><div class="stat-val" style="font-size:16px;padding-top:4px">Yearly</div><div class="stat-lbl">Static Doc</div></div></div>
+      <div class="stat-card"><div class="stat-accent" style="background:var(--blue)"></div><div><div class="stat-val" id="totalmetrics">8</div><div class="stat-lbl">Total Metrics</div></div></div>
+      <div class="stat-card"><div class="stat-accent" style="background:var(--cyan)"></div><div><div class="stat-val" id="source_count">1</div><div class="stat-lbl">Data Sources</div></div></div>
+      <div class="stat-card"><div class="stat-accent" style="background:#0B6E56"></div><div><div class="stat-val" id="refresh" style="font-size:16px;padding-top:4px">Daily 5:30 PM</div><div class="stat-lbl">Refresh</div></div></div>
+      <div class="stat-card"><div class="stat-accent" style="background:var(--opal)"></div><div><div class="stat-val" id="staticfile" style="font-size:16px;padding-top:4px">Yearly</div><div class="stat-lbl">Static Doc</div></div></div>
     </div>
 
     <div class="table-wrap">
@@ -166,8 +166,8 @@
 
   <div class="footer">
     <span>Showing <strong id="shownCount">8</strong> of <strong id="totalCount">8</strong> metrics</span>
-    <span style="margin-left:auto">Dashboard Owner (Tech): <strong>BI Reporting Team</strong></span>
-    <span>Dept: <strong>Fundraising</strong></span>
+    <span style="margin-left:auto" >Dashboard Owner (Tech): <strong id="techowner">BI Reporting Team</strong></span>
+    <span>Dept: <strong id="department">Fundraising</strong></span>
   </div>
 </div>
 
