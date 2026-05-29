@@ -60,7 +60,7 @@
       console.error("Worksheet not found:", sheetName);
       return;
     }
-    $('#dashboard_name').innerHTML = tableau.extensions.settings.get("dashboard_name");
+    $('#dashboard_name')[0].innerHTML = tableau.extensions.settings.get("dashboard_name");
     // console.log("Loaded worksheet:", sheetName);
     //if (sheetName) { $('#configure').hide(); }
 
