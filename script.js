@@ -103,7 +103,7 @@
       document.getElementById('source_count').textContent = distinctDataSources.length;
       let ds_html = '<div class="chip active" onclick="setFilter(&#39;ALL&#39;,this)">All</div>';
       distinctDataSources.forEach(ds => {
-        ds_html += `<div class="chip" onclick="setFilter(${ds},this)">${ds}</div>`
+        ds_html += `<div class="chip" onclick="setFilter('${ds}',this)">${ds}</div>`
       });
       document.getElementById('ds_list').innerHTML=ds_html;
     });

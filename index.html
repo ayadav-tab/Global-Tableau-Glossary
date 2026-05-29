@@ -1,172 +1,802 @@
-
 <!-- saved from url=(0062)file:///C:/Users/MarapatlaRao/Downloads/business_glossary.html -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  :root{
-    --navy:#0B1157;--blue:#002BFF;--cyan:#78DCFF;--opal:#FED7FF;
-    --lgray:#F7F7F7;--mgray:#C8C8C8;--dgray:#545454;--white:#ffffff;
-  }
-  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--lgray);color:var(--navy);min-height:600px}
-  .topbar{background:var(--navy);padding:14px 24px;display:flex;align-items:center;gap:12px}
-  .topbar-left{flex:1}
-  .topbar-eyebrow{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:2px}
-  .topbar-title{font-size:19px;font-weight:700;color:#fff}
-  .topbar-sub{font-size:13px;color:rgba(255,255,255,0.5);margin-top:2px}
-  .toolbar{background:var(--white);border-bottom:1px solid #e8e8e8;padding:10px 24px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-  .filter-label{font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--dgray);margin-right:4px;flex-shrink:0}
-  .chip{padding:5px 13px;border-radius:20px;border:1.5px solid var(--mgray);font-size:13px;font-weight:600;cursor:pointer;background:#fff;color:var(--dgray);transition:all 0.15s;white-space:nowrap}
-  .chip.active{background:var(--navy);border-color:var(--navy);color:#fff}
-  .chip:hover:not(.active){border-color:var(--blue);color:var(--blue)}
-  .search-wrap{position:relative;margin-left:auto}
-  .search-wrap input{padding:7px 12px 7px 32px;border:1.5px solid var(--mgray);border-radius:8px;font-size:14px;color:var(--navy);background:var(--lgray);outline:none;width:200px;transition:border 0.15s}
-  .search-wrap input:focus{border-color:var(--blue);background:#fff}
-  .search-icon{position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:16px;color:var(--dgray)}
-  .content{padding:18px 24px;height:73vh}
-  .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
-  .stat-card{background:var(--white);border-radius:10px;padding:14px 16px;border:1px solid #eee;display:flex;align-items:center;gap:12px}
-  .stat-accent{width:4px;height:36px;border-radius:3px;flex-shrink:0}
-  .stat-val{font-size:24px;font-weight:700;color:var(--navy);line-height:1}
-  .stat-lbl{font-size:12px;color:var(--dgray);margin-top:3px;text-transform:uppercase;letter-spacing:0.8px}
-  .table-wrap{background:var(--white);border-radius:12px;overflow:hidden;border:1px solid #eee;overflow:auto;max-height:57vh;}
-  table{width:100%;border-collapse:collapse;font-size:15px}
-  thead tr{background:var(--navy)}
-  thead th{padding:11px 14px;text-align:left;font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,0.8);white-space:nowrap}
-  tbody tr[data-idx]{border-bottom:1px solid #f0f0f0;cursor:pointer;transition:background 0.12s}
-  tbody tr[data-idx]:hover{background:#f4f7ff}
-  tbody tr[data-idx].expanded{background:#eef1ff}
-  tbody tr.detail-row{background:#f7f8ff;cursor:default}
-  tbody tr.detail-row:hover{background:#f7f8ff}
-  td{padding:11px 14px;vertical-align:middle}
-  .metric-name{font-weight:600;color:var(--navy);font-size:15px}
-  .ds-badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:12px;font-size:12px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;white-space:nowrap}
-  .ds-CRM{background:#ffffff;color:#002BFF;border:1px solid #002BFF}
-  .ds-LO{background:#E1FBF6;color:#0B6E56}
-  .ds-WD{background:#FFF5E0;color:#7a4400}
-  .ds-Calc{background:var(--opal);color:#6B0080}
-  .ds-Static{background:#F0F0F0;color:#444}
-  .expand-btn{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--mgray);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--dgray);transition:all 0.15s;user-select:none;flex-shrink:0;line-height:1}
-  .expand-btn.open{background:var(--blue);border-color:var(--blue);color:#fff;transform:rotate(45deg)}
-  .detail-panel{padding:14px 18px 14px 40px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  .detail-box{background:#fff;border-radius:8px;padding:12px 14px;border:1px solid #e8e8e8}
-  .d-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dgray);margin-bottom:7px;display:flex;align-items:center;gap:6px}
-  .d-dot{width:7px;height:7px;border-radius:50%;display:inline-block;flex-shrink:0}
-  .calc-block{font-family:'Courier New',monospace;font-size:15px;background:#ffffff;padding:9px 11px;border-radius:6px;border-left:3px solid var(--blue);color:#1a1a6e;line-height:1.6;word-break:break-word}
-  .d-text{font-size:14px;line-height:1.6;color:#333}
-  .footer{padding:10px 24px;background:var(--white);border-top:1px solid #eee;display:flex;align-items:center;gap:20px;font-size:13px;color:var(--dgray)}
-  .footer strong{color:var(--navy)}
-  .empty{text-align:center;padding:56px 20px;display:none}
-  .empty .ei{font-size:34px;margin-bottom:10px}
-  .group-row{
-  background:#e7e1e1;
-  cursor:pointer;
-}
+<html>
 
-.group-row td{
-  padding:10px 14px;
-  border-bottom:none;
-}
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
 
-.group-header{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  color:#0b1157;
-}
+        :root {
+            --navy: #0B1157;
+            --blue: #002BFF;
+            --cyan: #78DCFF;
+            --opal: #FED7FF;
+            --lgray: #F7F7F7;
+            --mgray: #C8C8C8;
+            --dgray: #545454;
+            --white: #ffffff;
+        }
 
-.group-toggle{
-  width:20px;
-  height:20px;
-  border-radius:50%;
-  border:1.5px solid rgba(255,255,255,.45);
-  background:rgba(255,255,255,.08);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:15px;
-  font-weight:700;
-  transition:.2s;
-  flex-shrink:0;
-}
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--lgray);
+            color: var(--navy);
+            min-height: 600px
+        }
 
-.group-toggle.open{
-  background:var(--blue);
-  border-color:var(--blue);
-  
-  transform: rotate(45deg);
-    padding-bottom: 2px;
-    
-}
+        .topbar {
+            background: var(--navy);
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
 
-.group-title{
-  font-size:13px;
-  font-weight:700;
-  letter-spacing:.8px;
-  text-transform:uppercase;
-}
+        .topbar-left {
+            flex: 1
+        }
+
+        .topbar-eyebrow {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--cyan);
+            margin-bottom: 2px
+        }
+
+        .topbar-title {
+            font-size: 19px;
+            font-weight: 700;
+            color: #fff
+        }
+
+        .topbar-sub {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 2px
+        }
+
+        .toolbar {
+            background: var(--white);
+            border-bottom: 1px solid #e8e8e8;
+            padding: 10px 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap
+        }
+
+        .filter-label {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: var(--dgray);
+            margin-right: 4px;
+            flex-shrink: 0
+        }
+
+        .chip {
+            padding: 5px 13px;
+            border-radius: 20px;
+            border: 1.5px solid var(--mgray);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            background: #fff;
+            color: var(--dgray);
+            transition: all 0.15s;
+            white-space: nowrap
+        }
+
+        .chip.active {
+            background: var(--navy);
+            border-color: var(--navy);
+            color: #fff
+        }
+
+        .chip:hover:not(.active) {
+            border-color: var(--blue);
+            color: var(--blue)
+        }
+
+        .search-wrap {
+            position: relative;
+            margin-left: auto
+        }
+
+        .search-wrap input {
+            padding: 7px 12px 7px 32px;
+            border: 1.5px solid var(--mgray);
+            border-radius: 8px;
+            font-size: 14px;
+            color: var(--navy);
+            background: var(--lgray);
+            outline: none;
+            width: 200px;
+            transition: border 0.15s
+        }
+
+        .search-wrap input:focus {
+            border-color: var(--blue);
+            background: #fff
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 9px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            color: var(--dgray)
+        }
+
+        .content {
+            padding: 18px 24px;
+            height: 73vh
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 18px
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 14px 16px;
+            border: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .stat-accent {
+            width: 4px;
+            height: 36px;
+            border-radius: 3px;
+            flex-shrink: 0
+        }
+
+        .stat-val {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1
+        }
+
+        .stat-lbl {
+            font-size: 12px;
+            color: var(--dgray);
+            margin-top: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px
+        }
+
+        .table-wrap {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #eee;
+            overflow: auto;
+            max-height: 57vh;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 15px
+        }
+
+        thead tr {
+            background: var(--navy)
+        }
+
+        thead th {
+            padding: 11px 14px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.8);
+            white-space: nowrap
+        }
+
+        tbody tr[data-idx] {
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: background 0.12s
+        }
+
+        tbody tr[data-idx]:hover {
+            background: #f4f7ff
+        }
+
+        tbody tr[data-idx].expanded {
+            background: #eef1ff
+        }
+
+        tbody tr.detail-row {
+            background: #f7f8ff;
+            cursor: default
+        }
+
+        tbody tr.detail-row:hover {
+            background: #f7f8ff
+        }
+
+        td {
+            padding: 11px 14px;
+            vertical-align: middle
+        }
+
+        .metric-name {
+            font-weight: 600;
+            color: var(--navy);
+            font-size: 15px
+        }
+
+        .ds-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 9px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            white-space: nowrap
+        }
+
+        .ds-CRM {
+            background: #ffffff;
+            color: #002BFF;
+            border: 1px solid #002BFF
+        }
+
+        .ds-LO {
+            background: #E1FBF6;
+            color: #0B6E56
+        }
+
+        .ds-WD {
+            background: #FFF5E0;
+            color: #7a4400
+        }
+
+        .ds-Calc {
+            background: var(--opal);
+            color: #6B0080
+        }
+
+        .ds-Static {
+            background: #F0F0F0;
+            color: #444
+        }
+
+        .expand-btn {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 1.5px solid var(--mgray);
+            background: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: var(--dgray);
+            transition: all 0.15s;
+            user-select: none;
+            flex-shrink: 0;
+            line-height: 1
+        }
+
+        .expand-btn.open {
+            background: var(--blue);
+            border-color: var(--blue);
+            color: #fff;
+            transform: rotate(45deg)
+        }
+
+        .detail-panel {
+            padding: 14px 18px 14px 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px
+        }
+
+        .detail-box {
+            background: #fff;
+            border-radius: 8px;
+            padding: 12px 14px;
+            border: 1px solid #e8e8e8
+        }
+
+        .d-label {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--dgray);
+            margin-bottom: 7px;
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .d-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            display: inline-block;
+            flex-shrink: 0
+        }
+
+        .calc-block {
+            font-family: 'Courier New', monospace;
+            font-size: 15px;
+            background: #ffffff;
+            padding: 9px 11px;
+            border-radius: 6px;
+            border-left: 3px solid var(--blue);
+            color: #1a1a6e;
+            line-height: 1.6;
+            word-break: break-word
+        }
+
+        .d-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333
+        }
+
+        .footer {
+            padding: 10px 24px;
+            background: var(--white);
+            border-top: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 13px;
+            color: var(--dgray)
+        }
+
+        .footer strong {
+            color: var(--navy)
+        }
+
+        .empty {
+            text-align: center;
+            padding: 56px 20px;
+            display: none
+        }
+
+        .empty .ei {
+            font-size: 34px;
+            margin-bottom: 10px
+        }
+
+        .group-row {
+            background: #e7e1e1;
+            cursor: pointer;
+        }
+
+        .group-row td {
+            padding: 10px 14px;
+            border-bottom: none;
+        }
+
+        .group-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #0b1157;
+        }
+
+        .group-toggle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(255, 255, 255, .45);
+            background: rgba(255, 255, 255, .08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            font-weight: 700;
+            transition: .2s;
+            flex-shrink: 0;
+        }
+
+        .group-toggle.open {
+            background: var(--blue);
+            border-color: var(--blue);
+
+            transform: rotate(45deg);
+            padding-bottom: 2px;
+
+        }
+
+        .group-title {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: .8px;
+            text-transform: uppercase;
+        }
 
 
-.metric-row.hidden-by-group,
-.detail-row.hidden-by-group{
-  display:none !important;
-}
-</style>
- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script src="tableau.extensions.1.latest.js"></script>
-   <script src="script.js"></script>
-</head><body><div>
-    <button id="configure">Configure</button>
-  <div class="topbar">
-    <div class="topbar-left">
-      <div class="topbar-eyebrow">Tableau Glossary</div>
-      <div class="topbar-title" id="dashboard_name">Direct Response Fundraising</div>
-      <div class="topbar-sub">Owner: <span id="owner">Fundraising Team</span> &nbsp;·&nbsp; Source: <span id="major_source">CRM</span> &nbsp;·&nbsp; Refresh: <span id="refresh"></span></div>
+        .metric-row.hidden-by-group,
+        .detail-row.hidden-by-group {
+            display: none !important;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="tableau.extensions.1.latest.js"></script>
+    <script src="script.js"></script>
+</head>
+
+<body>
+    <div>
+        <button id="configure">Configure</button>
+        <div class="topbar">
+            <div class="topbar-left">
+                <div class="topbar-eyebrow">Tableau Glossary</div>
+                <div class="topbar-title" id="dashboard_name">Direct Response Fundraising</div>
+                <div class="topbar-sub">Owner: <span id="owner">Fundraising Team</span> &nbsp;·&nbsp; Source: <span
+                        id="major_source">CRM</span> &nbsp;·&nbsp; Refresh: <span id="refresh"></span></div>
+            </div>
+        </div>
+
+        <div class="toolbar">
+            <span class="filter-label">Source</span>
+            <div id="ds_list" style="background: var(--white);
+  border-bottom: 1px solid #e8e8e8;
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;">
+
+            </div>
+            <div class="search-wrap">
+                <span class="search-icon">⌕</span>
+                <input type="text" id="metricSearch" placeholder="Search metrics…" oninput="filterrows()">
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-accent" style="background:var(--blue)"></div>
+                    <div>
+                        <div class="stat-val" id="totalmetrics">8</div>
+                        <div class="stat-lbl">Total Metrics</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-accent" style="background:var(--cyan)"></div>
+                    <div>
+                        <div class="stat-val" id="source_count">1</div>
+                        <div class="stat-lbl">Data Sources</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-accent" style="background:#0B6E56"></div>
+                    <div>
+                        <div class="stat-val" id="refresh_div" style="font-size:16px;padding-top:4px">Daily 5:30 PM
+                        </div>
+                        <div class="stat-lbl">Refresh</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-accent" style="background:var(--opal)"></div>
+                    <div>
+                        <div class="stat-val" id="staticfile" style="font-size:16px;padding-top:4px">Yearly</div>
+                        <div class="stat-lbl">Static Doc</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-wrap">
+                <table id="glossaryTable">
+                    <thead>
+                        <tr>
+                            <th style="width:24px"></th>
+                            <th>Metric / Viz Name</th>
+                            <th style="width:130px">Data Source</th>
+                            <th>Business Definition</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <tr data-idx="0" class="expanded">
+                            <td style="padding:10px 10px 10px 14px">
+                                <div class="expand-btn open" data-btn="0">+</div>
+                            </td>
+                            <td>
+                                <div class="metric-name">Annual Giving – Direct Response Overview</div>
+                            </td>
+                            <td><span class="ds-badge ds-CRM">CRM</span></td>
+                            <td style="color:var(--dgray);line-height:1.5;font-size:14px">Total dollars raised for MSD
+                                GAU 5140 in the fiscal year selected.</td>
+                        </tr>
+                        <tr data-detail="0" class="detail-row" style="">
+                            <td colspan="4" style="padding:0">
+                                <div class="detail-panel">
+                                    <div class="detail-box">
+                                        <div class="d-label"><span class="d-dot"
+                                                style="background:var(--blue)"></span>Calculation logic</div>
+                                        <div class="calc-block">SUM of Amount on Opportunities where Stage =
+                                            Received/Pledged, MSD GAU = 5140, within FY date range</div>
+                                    </div>
+                                    <div class="detail-box">
+                                        <div class="d-label"><span class="d-dot" style="background:#0B6E56"></span>Data
+                                            source</div>
+                                        <div style="margin-bottom:10px"><span class="ds-badge ds-CRM">CRM</span></div>
+                                        <div class="d-label" style="margin-top:8px"><span class="d-dot"
+                                                style="background:#6B0080"></span>Business definition</div>
+                                        <div class="d-text">Total dollars raised for MSD GAU 5140 in the fiscal year
+                                            selected.</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-idx="1">
+                            <td style="padding:10px 10px 10px 14px">
+                                <div class="expand-btn" data-btn="1">+</div>
+                            </td>
+                            <td>
+                                <div class="metric-name">Total Digital Revenue</div>
+                            </td>
+                            <td><span class="ds-badge ds-CRM">CRM</span></td>
+                            <td style="color:var(--dgray);line-height:1.5;font-size:14px">Total dollars raised for the
+                                digital portion of the Direct Response program.</td>
+                        </tr>
+                        <tr data-detail="1" class="detail-row" style="display: none;">
+                            <td colspan="4" style="padding:0">
+                                <div class="detail-panel">
+                                    <div class="detail-box">
+                                        <div class="d-label"><span class="d-dot"
+                                                style="background:var(--blue)"></span>Calculation logic</div>
+                                        <div class="calc-block">SUM of Amount on Opportunities where Stage =
+                                            Received/Pledged, MSD GAU = 5140, FY date range — Campaign Names NOT
+                                            beginning with 'A', 'R', 'Direct Mail', '1MA', or '1MR'</div>
+                                    </div>
+                                    <div class="detail-box">
+                                        <div class="d-label"><span class="d-dot" style="background:#0B6E56"></span>Data
+                                            source</div>
+                                        <div style="margin-bottom:10px"><span class="ds-badge ds-CRM">CRM</span></div>
+                                        <div class="d-label" style="margin-top:8px"><span class="d-dot"
+                                                style="background:#6B0080"></span>Business definition</div>
+                                        <div class="d-text">Total dollars raised for the digital portion of the Direct
+                                            Response program.</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-idx="2">
+                            <td style="padding:10px 10px 10px 14px">
+                                <div class="expand-btn" data-btn="2">+</div>
+                            </td>
+                            <td>
+                                <div class="metric-name">Total Mail Revenue</div>
+                            </td>
+                            <td><span class="ds-badge ds-CRM">CRM</span></td>
+                            <td style="color:var(--dgray);line-height:1.5;font-size:14px">Total dollars raised for the
+                                direct mail portion of the Direct Response program.</td>
+                        </tr>
+                        <tr data-detail="2" class="detail-row" style="display: none;">
+                            <td colspan="4" style="padding:0">
+                                <div class="detail-panel">
+                                    <div class="detail-box">
+                                        <div class="d-label"><span class="d-dot"
+                                                style="background:var(--blue)"></span>Calculation logic</div>
+                                        <div class="calc-block">SUM of Amount on Opportunities where Stage =
+                                            Received/Pledged, MSD GAU = 5140, FY date range — Campaign Names beginning
+                                            with 'A', 'R', 'Direct Mail', '1MA', or '1MR'</div>
+                                    </div>
+                                    <div class="detail-box">
+                                        <div class="d-label"><span class="d-dot" style="background:#0B6E56"></span>Data
+                                            source</div>
+                                        <div style="margin-bottom:10px"><span class="ds-badge ds-CRM">CRM</span></div>
+                                        <div class="d-label" style="margin-top:8px"><span class="d-dot"
+                                                style="background:#6B0080"></span>Business definition</div>
+                                        <div class="d-text">Total dollars raised for the direct mail portion of the
+                                            Direct Response program.</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-idx="3">
+                            <td style="padding:10px 10px 10px 14px">
+                                <div class="expand-btn" data-btn="3">+</div>
+                            </td>
+                            <td>
+                                <div class="metric-name">Total Number of Digital Donors</div>
+                            </td>
+                            <td><span class="ds-badge ds-CRM">CRM</span></td>
+                            <td style="color:var(--dgray);line-height:1.5;font-size:14px">Total unique donors to the
+                                digital portion of the Direct Response program.</td>
+                        </tr>
+                        <tr data-detail="3" class="detail-row" style="display: none;">
+                            <td colspan="4" style="padding:0">
+                                <div class="detail-panel">
+                                    <div class="detail-box">
+                                        <div class="d-label"><span class="d-dot"
+                                                style="background:var(--blue)"></span>Calculation logic</div>
+                                        <div class="calc-block">COUNT of Accounts with Opportunity Stage =
+                                            Received/Pledged, MSD GAU = 5140, FY date range — Campaign Names NOT
+                                            beginning with 'A', 'R', 'Direct Mail', '1MA', '1MR'</div>
+                                    </div>
+                                    <div class="detail-box">
+                                        <div class="d-label"><span class="d-dot" style="background:#0B6E56"></span>Data
+                                            source</div>
+                                        <div style="margin-bottom:10px"><span class="ds-badge ds-CRM">CRM</span></div>
+                                        <div class="d-label" style="margin-top:8px"><span class="d-dot"
+                                                style="background:#6B0080"></span>Business definition</div>
+                                        <div class="d-text">Total unique donors to the digital portion of the Direct
+                                            Response program.</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-idx="4">
+                            <td style="padding:10px 10px 10px 14px">
+                                <div class="expand-btn" data-btn="4">+</div>
+                            </td>
+                            <td>
+                                <div class="metric-name">Total Number of Digital Gifts</div>
+                            </td>
+                            <td><span class="ds-badge ds-CRM">CRM</span></td>
+                            <td style="color:var(--dgray);line-height:1.5;font-size:14px">Total number of gifts to the
+                                digital portion of the Direct Response program.</td>
+                        </tr>
+                        <tr data-detail="4" class="detail-row" style="display: none;">
+                            <td colspan="4" style="padding:0">
+                                <div class="detail-panel">
+                                    <div class="detail-box">
+                                        <div class="d-label"><span class="d-dot"
+                                                style="background:var(--blue)"></span>Calculation logic</div>
+                                        <div class="calc-block">COUNT of Opportunities where Stage = Received/Pledged,
+                                            MSD GAU = 5140, FY date range — Campaign Names NOT beginning with 'A', 'R',
+                                            'Direct Mail', '1MA', '1MR'</div>
+                                    </div>
+                                    <div class="detail-box">
+                                        <div class="d-label"><span class="d-dot" style="background:#0B6E56"></span>Data
+                                            source</div>
+                                        <div style="margin-bottom:10px"><span class="ds-badge ds-CRM">CRM</span></div>
+                                        <div class="d-label" style="margin-top:8px"><span class="d-dot"
+                                                style="background:#6B0080"></span>Business definition</div>
+                                        <div class="d-text">Total number of gifts to the digital portion of the Direct
+                                            Response program.</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-idx="5">
+                            <td style="padding:10px 10px 10px 14px">
+                                <div class="expand-btn" data-btn="5">+</div>
+                            </td>
+                            <td>
+                                <div class="metric-name">Total Donors Giving to Direct Response</div>
+                            </td>
+                            <td><span class="ds-badge ds-CRM">CRM</span></td>
+                            <td style="color:var(--dgray);line-height:1.5;font-size:14px">Unique donor count for MSD GAU
+                                5140 in the fiscal year selected.</td>
+                        </tr>
+                        <tr data-detail="5" class="detail-row" style="display: none;">
+                            <td colspan="4" style="padding:0">
+                                <div class="detail-panel">
+                                    <div class="detail-box">
+                                        <div class="d-label"><span class="d-dot"
+                                                style="background:var(--blue)"></span>Calculation logic</div>
+                                        <div class="calc-block">COUNT of Opportunities where Stage = Received/Pledged,
+                                            MSD GAU = 5140, FY date range — de-duplicated by Account ID</div>
+                                    </div>
+                                    <div class="detail-box">
+                                        <div class="d-label"><span class="d-dot" style="background:#0B6E56"></span>Data
+                                            source</div>
+                                        <div style="margin-bottom:10px"><span class="ds-badge ds-CRM">CRM</span></div>
+                                        <div class="d-label" style="margin-top:8px"><span class="d-dot"
+                                                style="background:#6B0080"></span>Business definition</div>
+                                        <div class="d-text">Unique donor count for MSD GAU 5140 in the fiscal year
+                                            selected.</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-idx="6">
+                            <td style="padding:10px 10px 10px 14px">
+                                <div class="expand-btn" data-btn="6">+</div>
+                            </td>
+                            <td>
+                                <div class="metric-name">Total Number of Mail Donors</div>
+                            </td>
+                            <td><span class="ds-badge ds-CRM">CRM</span></td>
+                            <td style="color:var(--dgray);line-height:1.5;font-size:14px">Total unique donors to the
+                                direct mail portion of the Direct Response program.</td>
+                        </tr>
+                        <tr data-detail="6" class="detail-row" style="display: none;">
+                            <td colspan="4" style="padding:0">
+                                <div class="detail-panel">
+                                    <div class="detail-box">
+                                        <div class="d-label"><span class="d-dot"
+                                                style="background:var(--blue)"></span>Calculation logic</div>
+                                        <div class="calc-block">COUNT of Accounts with Opportunity Stage =
+                                            Received/Pledged, MSD GAU = 5140, FY date range — Campaign Names beginning
+                                            with 'A', 'R', 'Direct Mail', '1MA', '1MR'</div>
+                                    </div>
+                                    <div class="detail-box">
+                                        <div class="d-label"><span class="d-dot" style="background:#0B6E56"></span>Data
+                                            source</div>
+                                        <div style="margin-bottom:10px"><span class="ds-badge ds-CRM">CRM</span></div>
+                                        <div class="d-label" style="margin-top:8px"><span class="d-dot"
+                                                style="background:#6B0080"></span>Business definition</div>
+                                        <div class="d-text">Total unique donors to the direct mail portion of the Direct
+                                            Response program.</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-idx="7">
+                            <td style="padding:10px 10px 10px 14px">
+                                <div class="expand-btn" data-btn="7">+</div>
+                            </td>
+                            <td>
+                                <div class="metric-name">Total Number of Mail Gifts</div>
+                            </td>
+                            <td><span class="ds-badge ds-CRM">CRM</span></td>
+                            <td style="color:var(--dgray);line-height:1.5;font-size:14px">Total number of gifts for the
+                                direct mail portion of the Direct Response program.</td>
+                        </tr>
+                        <tr data-detail="7" class="detail-row" style="display: none;">
+                            <td colspan="4" style="padding:0">
+                                <div class="detail-panel">
+                                    <div class="detail-box">
+                                        <div class="d-label"><span class="d-dot"
+                                                style="background:var(--blue)"></span>Calculation logic</div>
+                                        <div class="calc-block">COUNT of Opportunities where Stage = Received/Pledged,
+                                            MSD GAU = 5140, FY date range — Campaign Names beginning with 'A', 'R',
+                                            'Direct Mail', '1MA', '1MR'</div>
+                                    </div>
+                                    <div class="detail-box">
+                                        <div class="d-label"><span class="d-dot" style="background:#0B6E56"></span>Data
+                                            source</div>
+                                        <div style="margin-bottom:10px"><span class="ds-badge ds-CRM">CRM</span></div>
+                                        <div class="d-label" style="margin-top:8px"><span class="d-dot"
+                                                style="background:#6B0080"></span>Business definition</div>
+                                        <div class="d-text">Total number of gifts for the direct mail portion of the
+                                            Direct Response program.</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="empty" id="emptyState">
+                    <div class="ei">◎</div>
+                    <div style="font-size:16px;font-weight:600;color:var(--navy)">No metrics match</div>
+                    <div style="font-size:14px;color:var(--dgray);margin-top:5px">Adjust your search or filter.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <span>Showing <strong id="shownCount">8</strong> of <strong id="totalCount">8</strong> metrics</span>
+            <span style="margin-left:auto">Dashboard Owner (Tech): <strong id="techowner">BI Reporting
+                    Team</strong></span>
+            <span>Dept: <strong id="department">Fundraising</strong></span>
+        </div>
     </div>
-  </div>
 
-  <div class="toolbar">
-    <span class="filter-label">Source</span>
-    <div id="ds_list">
-    
-    </div>
-    <div class="search-wrap">
-      <span class="search-icon">⌕</span>
-      <input type="text" id="metricSearch" placeholder="Search metrics…" oninput="filterrows()">
-    </div>
-  </div>
+</body>
 
-  <div class="content">
-    <div class="stats-row">
-      <div class="stat-card"><div class="stat-accent" style="background:var(--blue)"></div><div><div class="stat-val" id="totalmetrics">8</div><div class="stat-lbl">Total Metrics</div></div></div>
-      <div class="stat-card"><div class="stat-accent" style="background:var(--cyan)"></div><div><div class="stat-val" id="source_count">1</div><div class="stat-lbl">Data Sources</div></div></div>
-      <div class="stat-card"><div class="stat-accent" style="background:#0B6E56"></div><div><div class="stat-val" id="refresh_div" style="font-size:16px;padding-top:4px">Daily 5:30 PM</div><div class="stat-lbl">Refresh</div></div></div>
-      <div class="stat-card"><div class="stat-accent" style="background:var(--opal)"></div><div><div class="stat-val" id="staticfile" style="font-size:16px;padding-top:4px">Yearly</div><div class="stat-lbl">Static Doc</div></div></div>
-    </div>
-
-    <div class="table-wrap">
-      <table id="glossaryTable">
-        <thead>
-          <tr>
-            <th style="width:24px"></th>
-            <th>Metric / Viz Name</th>
-            <th style="width:130px">Data Source</th>
-            <th>Business Definition</th>
-          </tr>
-        </thead>
-        <tbody id="tableBody"><tr data-idx="0" class="expanded"><td style="padding:10px 10px 10px 14px"><div class="expand-btn open" data-btn="0">+</div></td><td><div class="metric-name">Annual Giving – Direct Response Overview</div></td><td><span class="ds-badge ds-CRM">CRM</span></td><td style="color:var(--dgray);line-height:1.5;font-size:14px">Total dollars raised for MSD GAU 5140 in the fiscal year selected.</td></tr><tr data-detail="0" class="detail-row" style=""><td colspan="4" style="padding:0"><div class="detail-panel"><div class="detail-box"><div class="d-label"><span class="d-dot" style="background:var(--blue)"></span>Calculation logic</div><div class="calc-block">SUM of Amount on Opportunities where Stage = Received/Pledged, MSD GAU = 5140, within FY date range</div></div><div class="detail-box"><div class="d-label"><span class="d-dot" style="background:#0B6E56"></span>Data source</div><div style="margin-bottom:10px"><span class="ds-badge ds-CRM">CRM</span></div><div class="d-label" style="margin-top:8px"><span class="d-dot" style="background:#6B0080"></span>Business definition</div><div class="d-text">Total dollars raised for MSD GAU 5140 in the fiscal year selected.</div></div></div></td></tr><tr data-idx="1"><td style="padding:10px 10px 10px 14px"><div class="expand-btn" data-btn="1">+</div></td><td><div class="metric-name">Total Digital Revenue</div></td><td><span class="ds-badge ds-CRM">CRM</span></td><td style="color:var(--dgray);line-height:1.5;font-size:14px">Total dollars raised for the digital portion of the Direct Response program.</td></tr><tr data-detail="1" class="detail-row" style="display: none;"><td colspan="4" style="padding:0"><div class="detail-panel"><div class="detail-box"><div class="d-label"><span class="d-dot" style="background:var(--blue)"></span>Calculation logic</div><div class="calc-block">SUM of Amount on Opportunities where Stage = Received/Pledged, MSD GAU = 5140, FY date range — Campaign Names NOT beginning with 'A', 'R', 'Direct Mail', '1MA', or '1MR'</div></div><div class="detail-box"><div class="d-label"><span class="d-dot" style="background:#0B6E56"></span>Data source</div><div style="margin-bottom:10px"><span class="ds-badge ds-CRM">CRM</span></div><div class="d-label" style="margin-top:8px"><span class="d-dot" style="background:#6B0080"></span>Business definition</div><div class="d-text">Total dollars raised for the digital portion of the Direct Response program.</div></div></div></td></tr><tr data-idx="2"><td style="padding:10px 10px 10px 14px"><div class="expand-btn" data-btn="2">+</div></td><td><div class="metric-name">Total Mail Revenue</div></td><td><span class="ds-badge ds-CRM">CRM</span></td><td style="color:var(--dgray);line-height:1.5;font-size:14px">Total dollars raised for the direct mail portion of the Direct Response program.</td></tr><tr data-detail="2" class="detail-row" style="display: none;"><td colspan="4" style="padding:0"><div class="detail-panel"><div class="detail-box"><div class="d-label"><span class="d-dot" style="background:var(--blue)"></span>Calculation logic</div><div class="calc-block">SUM of Amount on Opportunities where Stage = Received/Pledged, MSD GAU = 5140, FY date range — Campaign Names beginning with 'A', 'R', 'Direct Mail', '1MA', or '1MR'</div></div><div class="detail-box"><div class="d-label"><span class="d-dot" style="background:#0B6E56"></span>Data source</div><div style="margin-bottom:10px"><span class="ds-badge ds-CRM">CRM</span></div><div class="d-label" style="margin-top:8px"><span class="d-dot" style="background:#6B0080"></span>Business definition</div><div class="d-text">Total dollars raised for the direct mail portion of the Direct Response program.</div></div></div></td></tr><tr data-idx="3"><td style="padding:10px 10px 10px 14px"><div class="expand-btn" data-btn="3">+</div></td><td><div class="metric-name">Total Number of Digital Donors</div></td><td><span class="ds-badge ds-CRM">CRM</span></td><td style="color:var(--dgray);line-height:1.5;font-size:14px">Total unique donors to the digital portion of the Direct Response program.</td></tr><tr data-detail="3" class="detail-row" style="display: none;"><td colspan="4" style="padding:0"><div class="detail-panel"><div class="detail-box"><div class="d-label"><span class="d-dot" style="background:var(--blue)"></span>Calculation logic</div><div class="calc-block">COUNT of Accounts with Opportunity Stage = Received/Pledged, MSD GAU = 5140, FY date range — Campaign Names NOT beginning with 'A', 'R', 'Direct Mail', '1MA', '1MR'</div></div><div class="detail-box"><div class="d-label"><span class="d-dot" style="background:#0B6E56"></span>Data source</div><div style="margin-bottom:10px"><span class="ds-badge ds-CRM">CRM</span></div><div class="d-label" style="margin-top:8px"><span class="d-dot" style="background:#6B0080"></span>Business definition</div><div class="d-text">Total unique donors to the digital portion of the Direct Response program.</div></div></div></td></tr><tr data-idx="4"><td style="padding:10px 10px 10px 14px"><div class="expand-btn" data-btn="4">+</div></td><td><div class="metric-name">Total Number of Digital Gifts</div></td><td><span class="ds-badge ds-CRM">CRM</span></td><td style="color:var(--dgray);line-height:1.5;font-size:14px">Total number of gifts to the digital portion of the Direct Response program.</td></tr><tr data-detail="4" class="detail-row" style="display: none;"><td colspan="4" style="padding:0"><div class="detail-panel"><div class="detail-box"><div class="d-label"><span class="d-dot" style="background:var(--blue)"></span>Calculation logic</div><div class="calc-block">COUNT of Opportunities where Stage = Received/Pledged, MSD GAU = 5140, FY date range — Campaign Names NOT beginning with 'A', 'R', 'Direct Mail', '1MA', '1MR'</div></div><div class="detail-box"><div class="d-label"><span class="d-dot" style="background:#0B6E56"></span>Data source</div><div style="margin-bottom:10px"><span class="ds-badge ds-CRM">CRM</span></div><div class="d-label" style="margin-top:8px"><span class="d-dot" style="background:#6B0080"></span>Business definition</div><div class="d-text">Total number of gifts to the digital portion of the Direct Response program.</div></div></div></td></tr><tr data-idx="5"><td style="padding:10px 10px 10px 14px"><div class="expand-btn" data-btn="5">+</div></td><td><div class="metric-name">Total Donors Giving to Direct Response</div></td><td><span class="ds-badge ds-CRM">CRM</span></td><td style="color:var(--dgray);line-height:1.5;font-size:14px">Unique donor count for MSD GAU 5140 in the fiscal year selected.</td></tr><tr data-detail="5" class="detail-row" style="display: none;"><td colspan="4" style="padding:0"><div class="detail-panel"><div class="detail-box"><div class="d-label"><span class="d-dot" style="background:var(--blue)"></span>Calculation logic</div><div class="calc-block">COUNT of Opportunities where Stage = Received/Pledged, MSD GAU = 5140, FY date range — de-duplicated by Account ID</div></div><div class="detail-box"><div class="d-label"><span class="d-dot" style="background:#0B6E56"></span>Data source</div><div style="margin-bottom:10px"><span class="ds-badge ds-CRM">CRM</span></div><div class="d-label" style="margin-top:8px"><span class="d-dot" style="background:#6B0080"></span>Business definition</div><div class="d-text">Unique donor count for MSD GAU 5140 in the fiscal year selected.</div></div></div></td></tr><tr data-idx="6"><td style="padding:10px 10px 10px 14px"><div class="expand-btn" data-btn="6">+</div></td><td><div class="metric-name">Total Number of Mail Donors</div></td><td><span class="ds-badge ds-CRM">CRM</span></td><td style="color:var(--dgray);line-height:1.5;font-size:14px">Total unique donors to the direct mail portion of the Direct Response program.</td></tr><tr data-detail="6" class="detail-row" style="display: none;"><td colspan="4" style="padding:0"><div class="detail-panel"><div class="detail-box"><div class="d-label"><span class="d-dot" style="background:var(--blue)"></span>Calculation logic</div><div class="calc-block">COUNT of Accounts with Opportunity Stage = Received/Pledged, MSD GAU = 5140, FY date range — Campaign Names beginning with 'A', 'R', 'Direct Mail', '1MA', '1MR'</div></div><div class="detail-box"><div class="d-label"><span class="d-dot" style="background:#0B6E56"></span>Data source</div><div style="margin-bottom:10px"><span class="ds-badge ds-CRM">CRM</span></div><div class="d-label" style="margin-top:8px"><span class="d-dot" style="background:#6B0080"></span>Business definition</div><div class="d-text">Total unique donors to the direct mail portion of the Direct Response program.</div></div></div></td></tr><tr data-idx="7"><td style="padding:10px 10px 10px 14px"><div class="expand-btn" data-btn="7">+</div></td><td><div class="metric-name">Total Number of Mail Gifts</div></td><td><span class="ds-badge ds-CRM">CRM</span></td><td style="color:var(--dgray);line-height:1.5;font-size:14px">Total number of gifts for the direct mail portion of the Direct Response program.</td></tr><tr data-detail="7" class="detail-row" style="display: none;"><td colspan="4" style="padding:0"><div class="detail-panel"><div class="detail-box"><div class="d-label"><span class="d-dot" style="background:var(--blue)"></span>Calculation logic</div><div class="calc-block">COUNT of Opportunities where Stage = Received/Pledged, MSD GAU = 5140, FY date range — Campaign Names beginning with 'A', 'R', 'Direct Mail', '1MA', '1MR'</div></div><div class="detail-box"><div class="d-label"><span class="d-dot" style="background:#0B6E56"></span>Data source</div><div style="margin-bottom:10px"><span class="ds-badge ds-CRM">CRM</span></div><div class="d-label" style="margin-top:8px"><span class="d-dot" style="background:#6B0080"></span>Business definition</div><div class="d-text">Total number of gifts for the direct mail portion of the Direct Response program.</div></div></div></td></tr></tbody>
-      </table>
-      <div class="empty" id="emptyState">
-        <div class="ei">◎</div>
-        <div style="font-size:16px;font-weight:600;color:var(--navy)">No metrics match</div>
-        <div style="font-size:14px;color:var(--dgray);margin-top:5px">Adjust your search or filter.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer">
-    <span>Showing <strong id="shownCount">8</strong> of <strong id="totalCount">8</strong> metrics</span>
-    <span style="margin-left:auto" >Dashboard Owner (Tech): <strong id="techowner">BI Reporting Team</strong></span>
-    <span>Dept: <strong id="department">Fundraising</strong></span>
-  </div>
-</div>
-
-</body></html>
+</html>
