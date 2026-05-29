@@ -186,7 +186,7 @@
     const distinctDataSources = [
   ...new Set(
     rows
-      .map(x => x.data_source)
+      .map(x => x.Data_Source)
       .filter(x => x != null && x !== '')
   )
 ];
