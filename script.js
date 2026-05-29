@@ -39,7 +39,7 @@
     expandedRows = new Set(),
     groupExpanded = true;
 
-  function setFilter(f, el) {
+  window.setFilter()= function(f, el) {
     currentFilter = f;
     document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
     el.classList.add('active');
