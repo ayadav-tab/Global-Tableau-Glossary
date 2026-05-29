@@ -105,7 +105,7 @@
       distinctDataSources.forEach(ds => {
         ds_html += `<div class="chip" onclick="setFilter(${ds},this)">${ds}</div>`
       });
-      document.getElementById('ds_list').appendChild(ds_html);
+      document.getElementById('ds_list').innerHTML=ds_html;
     });
   }
   function tableauToJson(sumdata) {
