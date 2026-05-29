@@ -45,13 +45,35 @@
     renderTable();
   }
   window.filterrows=function() {
-    return all_rows.filter(d => {
-      const mBU = selected_ds === "All" || d.Data_Source === selected_ds;
-      const mSrch = !searchtext || d.KPI.toLowerCase().includes(searchtext) || d.Data_Source.toLowerCase().includes(searchtext);
-      const mSrc = !searchtext || d.Business_Definition.includes(searchtext);
-      return mBU && mSrch && mSrc;
-    });
-  }
+
+  return all_rows.filter(d => {
+
+    const mBU =
+      selected_ds === "All" ||
+      d.Data_Source === selected_ds;
+
+    const search = searchtext.toLowerCase();
+
+    const mSearch =
+      !search ||
+
+      (d.KPI || '')
+        .toLowerCase()
+        .includes(search) ||
+
+      (d.Data_Source || '')
+        .toLowerCase()
+        .includes(search) ||
+
+      (d.Business_Definition || '')
+        .toLowerCase()
+        .includes(search);
+
+    return mBU && mSearch;
+
+  });
+
+}
   window.setFilter = function (f, el) {
     selected_ds = f;
     document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
