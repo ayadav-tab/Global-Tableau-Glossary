@@ -50,7 +50,7 @@
   .detail-box{background:#fff;border-radius:8px;padding:12px 14px;border:1px solid #e8e8e8}
   .d-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--dgray);margin-bottom:7px;display:flex;align-items:center;gap:6px}
   .d-dot{width:7px;height:7px;border-radius:50%;display:inline-block;flex-shrink:0}
-  .calc-block{font-family:'Courier New',monospace;font-size:13px;background:#ffffff;padding:9px 11px;border-radius:6px;border-left:3px solid var(--blue);color:#1a1a6e;line-height:1.6;word-break:break-word}
+  .calc-block{font-family:'Courier New',monospace;font-size:15px;background:#ffffff;padding:9px 11px;border-radius:6px;border-left:3px solid var(--blue);color:#1a1a6e;line-height:1.6;word-break:break-word}
   .d-text{font-size:14px;line-height:1.6;color:#333}
   .footer{padding:10px 24px;background:var(--white);border-top:1px solid #eee;display:flex;align-items:center;gap:20px;font-size:13px;color:var(--dgray)}
   .footer strong{color:var(--navy)}
@@ -125,14 +125,12 @@
 
   <div class="toolbar">
     <span class="filter-label">Source</span>
-    <div class="chip active" onclick="setFilter(&#39;ALL&#39;,this)">All</div>
-    <div class="chip" onclick="setFilter(&#39;CRM&#39;,this)">CRM</div>
-    <div class="chip" onclick="setFilter(&#39;LO&#39;,this)">Luminate Online</div>
-    <div class="chip" onclick="setFilter(&#39;WD&#39;,this)">Workday</div>
-    <div class="chip" onclick="setFilter(&#39;Calculated Field&#39;,this)">Calculated</div>
+    <div id="ds_list">
+    
+    </div>
     <div class="search-wrap">
       <span class="search-icon">⌕</span>
-      <input type="text" id="metricSearch" placeholder="Search metrics…" oninput="filterRows()">
+      <input type="text" id="metricSearch" placeholder="Search metrics…" oninput="filterrows()">
     </div>
   </div>
 

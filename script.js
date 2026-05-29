@@ -29,7 +29,7 @@
     });
 
   });
-  let rows ;
+  let all_rows ;
   let footer_data;
   const dsBadgeClass = { "CRM": "ds-CRM", "LO": "ds-LO", "WD": "ds-WD", "Calculated Field": "ds-Calc", "Static Goal data": "ds-Static" };
   const dsLabel = { "LO": "Luminate Online", "WD": "Workday", "Calculated Field": "Calculated", "Static Goal data": "Static Goal", "CRM": "CRM" };
@@ -38,12 +38,26 @@
   let currentFilter = 'ALL',
     expandedRows = new Set(),
     groupExpanded = true;
-
+    let searchtext='';
+    let selected_ds='All';
+    window.searchbar= function() {
+    searchtext=document.getElementById('metricSearch').value.toLowerCase();
+    renderTable();
+  }
+  function filterrows()
+  {
+    return  all_rows.filter(d => {
+      const mBU = cBU === "all" || d.Data_Source === selected_ds;
+      const mSrch = !cSrch || d.KPI.toLowerCase().includes(cSrch) || d.Data_Source.toLowerCase().includes(cSrch);
+      const mSrc = !cSrc || d.Business_Definition.includes(cSrc);
+      return mBU && mSrch && mSrc;
+    });
+  }
   window.setFilter= function(f, el) {
-    currentFilter = f;
+    selected_ds = f;
     document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
     el.classList.add('active');
-    filterRows();
+    renderTable();
   }
   async function loadSelectedSheet() {
     const sheetName = tableau.extensions.settings.get("worksheet");
@@ -78,17 +92,7 @@
   }
   async function loadData() {
     worksheet.getSummaryDataAsync().then(function (sumdata) {
-      const data = tableauToJson(sumdata);
-
-      rows = data.filter(x => {
-        const type = x.Tab ?? x.KPI;
-        return type !== 'Footer';
-      });
-
-      footer_data = data.filter(x => {
-        const type = x.Tab ?? x.KPI;
-        return type === 'Footer';
-      });
+      all_rows = tableauToJson(sumdata);
       renderTable();
     });
   }
@@ -108,25 +112,7 @@
       return obj;
     });
   }
-  window.filterRows=function() {
-    const q = document.getElementById('metricSearch').value.toLowerCase();
-    const tbody = document.getElementById('tableBody');
-    let shown = 0;
-    tbody.querySelectorAll('tr[data-idx]').forEach(tr => {
-      const idx = parseInt(tr.dataset.idx);
-      const row = rows[idx];
-      const dsOk = currentFilter === 'ALL' || row.Data_Source === currentFilter;
-      const qOk = !q || row.KPI.toLowerCase().includes(q) || row.Business_Definition.toLowerCase().includes(q) || row.Calculation.toLowerCase().includes(q);
-      const vis = dsOk && qOk;
-      tr.style.display = vis ? '' : 'none';
-      const dt = tbody.querySelector('tr[data-detail="' + idx + '"]');
-      if (dt) dt.style.display = (vis && expandedRows.has(idx)) ? '' : 'none';
-      if (vis) shown++;
-    });
-    document.getElementById('shownCount').textContent = shown;
-    document.getElementById('emptyState').style.display = shown === 0 ? 'block' : 'none';
-    document.getElementById('glossaryTable').style.display = shown === 0 ? 'none' : '';
-  }
+ 
   function toggleRow(idx) {
     const tbody = document.getElementById('tableBody');
     const btn = tbody.querySelector('.expand-btn[data-btn="' + idx + '"]');
@@ -176,21 +162,28 @@
 
   function renderTable() {
 
-    const tbody = document.getElementById('tableBody');
-
-    tbody.innerHTML = '';
-
-    document.getElementById('totalCount').textContent = rows.length;
-    document.getElementById('shownCount').textContent = rows.length;
-    document.getElementById('totalmetrics').textContent = rows.length;
-    const distinctDataSources = [
+     const distinctDataSources = [
   ...new Set(
-    rows
+    all_rows
       .map(x => x.Data_Source)
       .filter(x => x != null && x !== '')
   )
 ];
   document.getElementById('source_count').textContent = distinctDataSources.length;
+  const ds_html='<div class="chip active" onclick="setFilter(&#39;ALL&#39;,this)">All</div>';
+  distinctDataSources.forEach(ds=>{
+    ds_html+=`<div class="chip" onclick="setFilter(${ds},this)">${ds}</div>`
+  });
+  document.getElementById('ds_list').appendChild=ds_html;
+
+    const tbody = document.getElementById('tableBody');
+
+    tbody.innerHTML = '';
+    let rows=_filterrows();
+    document.getElementById('totalCount').textContent = rows.length;
+    document.getElementById('shownCount').textContent = rows.length;
+    document.getElementById('totalmetrics').textContent = rows.length;
+   
     let currentGroup = null;
 
     let groupCounter = -1;
