@@ -36,7 +36,7 @@ $(document).ready(function () {
 function saveSettings() {
     let selectedSheet = document.getElementById("sheetDropdown").value;    
     tableau.extensions.settings.set("worksheet", selectedSheet);  
-    tableau.extensions.settings.set("worksheet", document.getElementById("dashboard_name").value);    
+    tableau.extensions.settings.set("dashboard_name", document.getElementById("dashboard_name").value);    
     tableau.extensions.settings.saveAsync().then(() => {
         tableau.extensions.ui.closeDialog();
     });
