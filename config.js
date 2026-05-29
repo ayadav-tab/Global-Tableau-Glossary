@@ -24,7 +24,7 @@ $(document).ready(function () {
         }
          if (tableau.extensions.settings.get("dashboard_name"))
         {
-            dropdown.value=tableau.extensions.settings.get("dashboard_name");
+            document.getElementById("dashboard_name").value=tableau.extensions.settings.get("dashboard_name");
         }
         
 
