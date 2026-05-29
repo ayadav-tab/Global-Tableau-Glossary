@@ -106,6 +106,7 @@
         ds_html += `<div class="chip" onclick="setFilter('${ds}',this)">${ds}</div>`
       });
       document.getElementById('ds_list').innerHTML=ds_html;
+      document.getElementById('totalmetrics').textContent = all_rows.length;
     });
   }
   function tableauToJson(sumdata) {
@@ -182,7 +183,7 @@
     let rows = filterrows();
     document.getElementById('totalCount').textContent = rows.length;
     document.getElementById('shownCount').textContent = rows.length;
-    document.getElementById('totalmetrics').textContent = rows.length;
+    
 
     let currentGroup = null;
 
