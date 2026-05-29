@@ -2,7 +2,7 @@
   let worksheet;
   $(document).ready(function () {
     tableau.extensions.initializeAsync().then(function () {
-       loadSelectedSheet();
+      loadSelectedSheet();
       document.getElementById("configure").addEventListener("click", openConfig);
       if (
         tableau.extensions.environment.mode ===
@@ -29,7 +29,7 @@
     });
 
   });
-  let all_rows ;
+  let all_rows;
   let footer_data;
   const dsBadgeClass = { "CRM": "ds-CRM", "LO": "ds-LO", "WD": "ds-WD", "Calculated Field": "ds-Calc", "Static Goal data": "ds-Static" };
   const dsLabel = { "LO": "Luminate Online", "WD": "Workday", "Calculated Field": "Calculated", "Static Goal data": "Static Goal", "CRM": "CRM" };
@@ -38,22 +38,21 @@
   let currentFilter = 'ALL',
     expandedRows = new Set(),
     groupExpanded = true;
-    let searchtext='';
-    let selected_ds='All';
-    window.searchbar= function() {
-    searchtext=document.getElementById('metricSearch').value.toLowerCase();
+  let searchtext = '';
+  let selected_ds = 'All';
+  window.searchbar = function () {
+    searchtext = document.getElementById('metricSearch').value.toLowerCase();
     renderTable();
   }
-  function filterrows()
-  {
-    return  all_rows.filter(d => {
+  function filterrows() {
+    return all_rows.filter(d => {
       const mBU = selected_ds === "all" || d.Data_Source === selected_ds;
       const mSrch = !searchtext || d.KPI.toLowerCase().includes(searchtext) || d.Data_Source.toLowerCase().includes(searchtext);
       const mSrc = !searchtext || d.Business_Definition.includes(searchtext);
       return mBU && mSrch && mSrc;
     });
   }
-  window.setFilter= function(f, el) {
+  window.setFilter = function (f, el) {
     selected_ds = f;
     document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
     el.classList.add('active');
@@ -66,7 +65,7 @@
       console.log("No sheet selected yet");
       return;
     }
-   // $('.sheetname')[0].textContent = sheetName;
+    // $('.sheetname')[0].textContent = sheetName;
     worksheet = tableau.extensions.dashboardContent.dashboard.worksheets
       .find(ws => ws.name === sheetName);
 
@@ -75,10 +74,10 @@
       return;
     }
     $('#dashboard_name')[0].innerHTML = tableau.extensions.settings.get("dashboard_name");
-    $('#source').text( tableau.extensions.settings.get("source"));
-    $('#major_source').text( tableau.extensions.settings.get("source"));
-    $('#owner').text( tableau.extensions.settings.get("owner"));
-    $('#techowner').text( tableau.extensions.settings.get("techowner"));
+    $('#source').text(tableau.extensions.settings.get("source"));
+    $('#major_source').text(tableau.extensions.settings.get("source"));
+    $('#owner').text(tableau.extensions.settings.get("owner"));
+    $('#techowner').text(tableau.extensions.settings.get("techowner"));
     $('#department').text(tableau.extensions.settings.get("department"));
     $('#refresh')[0].innerHTML = tableau.extensions.settings.get("refresh");
     $('#refresh_div')[0].innerHTML = tableau.extensions.settings.get("refresh");
@@ -94,6 +93,19 @@
     worksheet.getSummaryDataAsync().then(function (sumdata) {
       all_rows = tableauToJson(sumdata);
       renderTable();
+      const distinctDataSources = [
+        ...new Set(
+          all_rows
+            .map(x => x.Data_Source)
+            .filter(x => x != null && x !== '')
+        )
+      ];
+      document.getElementById('source_count').textContent = distinctDataSources.length;
+      let ds_html = '<div class="chip active" onclick="setFilter(&#39;ALL&#39;,this)">All</div>';
+      distinctDataSources.forEach(ds => {
+        ds_html += `<div class="chip" onclick="setFilter(${ds},this)">${ds}</div>`
+      });
+      document.getElementById('ds_list').appendChild(ds_html);
     });
   }
   function tableauToJson(sumdata) {
@@ -112,7 +124,7 @@
       return obj;
     });
   }
- 
+
   function toggleRow(idx) {
     const tbody = document.getElementById('tableBody');
     const btn = tbody.querySelector('.expand-btn[data-btn="' + idx + '"]');
@@ -162,28 +174,16 @@
 
   function renderTable() {
 
-     const distinctDataSources = [
-  ...new Set(
-    all_rows
-      .map(x => x.Data_Source)
-      .filter(x => x != null && x !== '')
-  )
-];
-  document.getElementById('source_count').textContent = distinctDataSources.length;
-  let ds_html='<div class="chip active" onclick="setFilter(&#39;ALL&#39;,this)">All</div>';
-  distinctDataSources.forEach(ds=>{
-    ds_html+=`<div class="chip" onclick="setFilter(${ds},this)">${ds}</div>`
-  });
-  document.getElementById('ds_list').appendChild=ds_html;
+
 
     const tbody = document.getElementById('tableBody');
 
     tbody.innerHTML = '';
-    let rows=filterrows();
+    let rows = filterrows();
     document.getElementById('totalCount').textContent = rows.length;
     document.getElementById('shownCount').textContent = rows.length;
     document.getElementById('totalmetrics').textContent = rows.length;
-   
+
     let currentGroup = null;
 
     let groupCounter = -1;
