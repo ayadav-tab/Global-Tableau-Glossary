@@ -2,27 +2,27 @@
   let worksheet;
   $(document).ready(function () {
     tableau.extensions.initializeAsync().then(function () {
-      
+
       document.getElementById("configure").addEventListener("click", openConfig);
-            if (
-                tableau.extensions.environment.mode ===
-                tableau.ExtensionMode.Authoring
-            ) {
+      if (
+        tableau.extensions.environment.mode ===
+        tableau.ExtensionMode.Authoring
+      ) {
 
-                $('#configure').show();
+        $('#configure').show();
 
-            } else {
+      } else {
 
-                $('#configure').hide();
+        $('#configure').hide();
 
-            }
-            function openConfig() {
-                tableau.extensions.ui.displayDialogAsync(
-                    "config.html",
-                    "",
-                    { height: 300, width: 400 }
-                );
-            }
+      }
+      function openConfig() {
+        tableau.extensions.ui.displayDialogAsync(
+          "config.html",
+          "",
+          { height: 300, width: 400 }
+        );
+      }
     }, function (err) {
       // Something went wrong in initialization.
       console.log('Error while Initializing: ' + err.toString());
@@ -39,7 +39,7 @@
     { group: "Donor", name: "Total Number of Mail Donors", ds: "CRM", def: "Total unique donors to the direct mail portion of the Direct Response program.", calc: "COUNT of Accounts with Opportunity Stage = Received/Pledged, MSD GAU = 5140, FY date range — Campaign Names beginning with 'A', 'R', 'Direct Mail', '1MA', '1MR'" },
     { group: "Donor", name: "Total Number of Mail Gifts", ds: "CRM", def: "Total number of gifts for the direct mail portion of the Direct Response program.", calc: "COUNT of Opportunities where Stage = Received/Pledged, MSD GAU = 5140, FY date range — Campaign Names beginning with 'A', 'R', 'Direct Mail', '1MA', '1MR'" },
   ];
-
+  let footer_data;
   const dsBadgeClass = { "CRM": "ds-CRM", "LO": "ds-LO", "WD": "ds-WD", "Calculated Field": "ds-Calc", "Static Goal data": "ds-Static" };
   const dsLabel = { "LO": "Luminate Online", "WD": "Workday", "Calculated Field": "Calculated", "Static Goal data": "Static Goal", "CRM": "CRM" };
 
@@ -54,36 +54,46 @@
     el.classList.add('active');
     filterRows();
   }
-async function loadSelectedSheet() {
-        const sheetName = tableau.extensions.settings.get("worksheet");
+  async function loadSelectedSheet() {
+    const sheetName = tableau.extensions.settings.get("worksheet");
 
-        if (!sheetName) {
-            console.log("No sheet selected yet");
-            return;
-        }
-        $('.sheetname')[0].textContent = sheetName;
-        worksheet = tableau.extensions.dashboardContent.dashboard.worksheets
-            .find(ws => ws.name === sheetName);
-
-        if (!worksheet) {
-            console.error("Worksheet not found:", sheetName);
-            return;
-        }
-        $('#dashboard_name').innerHTML=tableau.extensions.settings.get("dashboard_name");
-        // console.log("Loaded worksheet:", sheetName);
-        //if (sheetName) { $('#configure').hide(); }
-
-        await loadData();  // 👈 call your data function
-      
-
+    if (!sheetName) {
+      console.log("No sheet selected yet");
+      return;
     }
-    async function loadData() {
-       worksheet.getSummaryDataAsync().then(function (sumdata) {
-          rows = tableauToJson(sumdata);
-          renderTable();
-       });
+    $('.sheetname')[0].textContent = sheetName;
+    worksheet = tableau.extensions.dashboardContent.dashboard.worksheets
+      .find(ws => ws.name === sheetName);
+
+    if (!worksheet) {
+      console.error("Worksheet not found:", sheetName);
+      return;
     }
-    function tableauToJson(sumdata) {
+    $('#dashboard_name').innerHTML = tableau.extensions.settings.get("dashboard_name");
+    // console.log("Loaded worksheet:", sheetName);
+    //if (sheetName) { $('#configure').hide(); }
+
+    await loadData();  // 👈 call your data function
+
+
+  }
+  async function loadData() {
+    worksheet.getSummaryDataAsync().then(function (sumdata) {
+      const data = tableauToJson(sumdata);
+
+      rows = data.filter(x => {
+        const type = x.Tab ?? x.KPI;
+        return type !== 'Footer';
+      });
+
+      footer_data = data.filter(x => {
+        const type = x.Tab ?? x.KPI;
+        return type === 'Footer';
+      });
+      renderTable();
+    });
+  }
+  function tableauToJson(sumdata) {
 
     return sumdata.data.map(row => {
 
@@ -106,8 +116,8 @@ async function loadSelectedSheet() {
     tbody.querySelectorAll('tr[data-idx]').forEach(tr => {
       const idx = parseInt(tr.dataset.idx);
       const row = rows[idx];
-      const dsOk = currentFilter === 'ALL' || row.ds === currentFilter;
-      const qOk = !q || row.name.toLowerCase().includes(q) || row.def.toLowerCase().includes(q) || row.calc.toLowerCase().includes(q);
+      const dsOk = currentFilter === 'ALL' || row.Data_Source === currentFilter;
+      const qOk = !q || row.KPI.toLowerCase().includes(q) || row.Business_Definition.toLowerCase().includes(q) || row.Calculation.toLowerCase().includes(q);
       const vis = dsOk && qOk;
       tr.style.display = vis ? '' : 'none';
       const dt = tbody.querySelector('tr[data-detail="' + idx + '"]');
@@ -185,16 +195,16 @@ async function loadSelectedSheet() {
     rows.forEach((row, i) => {
 
       const hasGroup =
-        row.group &&
-        row.group.trim() !== '' &&
-        row.group !== 'undefined';
+        row.Tab &&
+        row.Tab.trim() !== '' &&
+        row.Tab !== 'undefined';
 
 
       /* CREATE GROUP HEADER */
 
-      if (hasGroup && currentGroup !== row.group) {
+      if (hasGroup && currentGroup !== row.Tab) {
 
-        currentGroup = row.group;
+        currentGroup = row.Tab;
 
         groupCounter++;
 
@@ -218,7 +228,7 @@ async function loadSelectedSheet() {
           <div>
 
             <div class="group-title">
-              ${row.group}
+              ${row.Tab}
             </div>
 
           </div>
@@ -237,9 +247,9 @@ async function loadSelectedSheet() {
 
       /* NORMAL ROW */
 
-      const cls = dsBadgeClass[row.ds] || 'ds-Static';
+      const cls = dsBadgeClass[row.Data_Source] || 'ds-Static';
 
-      const lbl = dsLabel[row.ds] || row.ds;
+      const lbl = dsLabel[row.Data_Source] || row.Data_Source;
 
       const tr = document.createElement('tr');
 
@@ -263,7 +273,7 @@ async function loadSelectedSheet() {
 
     <td>
       <div class="metric-name">
-        ${row.name}
+        ${row.KPI}
       </div>
     </td>
 
@@ -274,7 +284,7 @@ async function loadSelectedSheet() {
     </td>
 
     <td style="color:var(--dgray);line-height:1.5;font-size:14px">
-      ${row.def}
+      ${row.Business_Definition}
     </td>
     `;
 
@@ -311,7 +321,7 @@ async function loadSelectedSheet() {
           </div>
 
           <div class="calc-block">
-            ${row.calc}
+            ${row.Calculation}
           </div>
 
         </div>
@@ -331,7 +341,7 @@ async function loadSelectedSheet() {
           <div style="margin-bottom:10px">
 
             <span class="ds-badge ${cls}">
-              ${row.ds}
+              ${row.Data_Source}
             </span>
 
           </div>
@@ -347,7 +357,7 @@ async function loadSelectedSheet() {
           </div>
 
           <div class="d-text">
-            ${row.def}
+            ${row.Business_Definition}
           </div>
 
         </div>
