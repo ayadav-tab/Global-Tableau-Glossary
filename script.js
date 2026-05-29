@@ -53,7 +53,7 @@
     });
   }
   window.setFilter = function (f, el) {
-    selected_ds = f;
+    selected_ds = f.toLowerCase();
     document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
     el.classList.add('active');
     renderTable();
@@ -97,7 +97,7 @@
         ...new Set(
           all_rows
             .map(x => x.Data_Source)
-            .filter(x => x != null && x !== '')
+            .filter(x => x != null && x !== '' && !x.toLowerCase().includes('null'))
         )
       ];
       document.getElementById('source_count').textContent = distinctDataSources.length;
