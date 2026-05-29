@@ -108,7 +108,7 @@
       return obj;
     });
   }
-  function filterRows() {
+  window.filterRows=function() {
     const q = document.getElementById('metricSearch').value.toLowerCase();
     const tbody = document.getElementById('tableBody');
     let shown = 0;
