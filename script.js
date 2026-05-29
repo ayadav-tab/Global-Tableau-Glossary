@@ -47,9 +47,9 @@
   function filterrows()
   {
     return  all_rows.filter(d => {
-      const mBU = cBU === "all" || d.Data_Source === selected_ds;
-      const mSrch = !cSrch || d.KPI.toLowerCase().includes(cSrch) || d.Data_Source.toLowerCase().includes(cSrch);
-      const mSrc = !cSrc || d.Business_Definition.includes(cSrc);
+      const mBU = selected_ds === "all" || d.Data_Source === selected_ds;
+      const mSrch = !searchtext || d.KPI.toLowerCase().includes(searchtext) || d.Data_Source.toLowerCase().includes(searchtext);
+      const mSrc = !searchtext || d.Business_Definition.includes(searchtext);
       return mBU && mSrch && mSrc;
     });
   }
