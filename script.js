@@ -29,16 +29,7 @@
     });
 
   });
-  const rows = [
-    { group: "Revenue", name: "Annual Giving – Direct Response Overview", ds: "CRM", def: "Total dollars raised for MSD GAU 5140 in the fiscal year selected.", calc: "SUM of Amount on Opportunities where Stage = Received/Pledged, MSD GAU = 5140, within FY date range" },
-    { group: "Revenue", name: "Total Digital Revenue", ds: "CRM", def: "Total dollars raised for the digital portion of the Direct Response program.", calc: "SUM of Amount on Opportunities where Stage = Received/Pledged, MSD GAU = 5140, FY date range — Campaign Names NOT beginning with 'A', 'R', 'Direct Mail', '1MA', or '1MR'" },
-    { group: "Revenue", name: "Total Mail Revenue", ds: "CRM", def: "Total dollars raised for the direct mail portion of the Direct Response program.", calc: "SUM of Amount on Opportunities where Stage = Received/Pledged, MSD GAU = 5140, FY date range — Campaign Names beginning with 'A', 'R', 'Direct Mail', '1MA', or '1MR'" },
-    { group: "Revenue", name: "Total Number of Digital Donors", ds: "CRM", def: "Total unique donors to the digital portion of the Direct Response program.", calc: "COUNT of Accounts with Opportunity Stage = Received/Pledged, MSD GAU = 5140, FY date range — Campaign Names NOT beginning with 'A', 'R', 'Direct Mail', '1MA', '1MR'" },
-    { group: "Revenue", name: "Total Number of Digital Gifts", ds: "CRM", def: "Total number of gifts to the digital portion of the Direct Response program.", calc: "COUNT of Opportunities where Stage = Received/Pledged, MSD GAU = 5140, FY date range — Campaign Names NOT beginning with 'A', 'R', 'Direct Mail', '1MA', '1MR'" },
-    { group: "Donor", name: "Total Donors Giving to Direct Response", ds: "CRM", def: "Unique donor count for MSD GAU 5140 in the fiscal year selected.", calc: "COUNT of Opportunities where Stage = Received/Pledged, MSD GAU = 5140, FY date range — de-duplicated by Account ID" },
-    { group: "Donor", name: "Total Number of Mail Donors", ds: "CRM", def: "Total unique donors to the direct mail portion of the Direct Response program.", calc: "COUNT of Accounts with Opportunity Stage = Received/Pledged, MSD GAU = 5140, FY date range — Campaign Names beginning with 'A', 'R', 'Direct Mail', '1MA', '1MR'" },
-    { group: "Donor", name: "Total Number of Mail Gifts", ds: "CRM", def: "Total number of gifts for the direct mail portion of the Direct Response program.", calc: "COUNT of Opportunities where Stage = Received/Pledged, MSD GAU = 5140, FY date range — Campaign Names beginning with 'A', 'R', 'Direct Mail', '1MA', '1MR'" },
-  ];
+  let rows ;
   let footer_data;
   const dsBadgeClass = { "CRM": "ds-CRM", "LO": "ds-LO", "WD": "ds-WD", "Calculated Field": "ds-Calc", "Static Goal data": "ds-Static" };
   const dsLabel = { "LO": "Luminate Online", "WD": "Workday", "Calculated Field": "Calculated", "Static Goal data": "Static Goal", "CRM": "CRM" };
