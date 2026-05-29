@@ -61,12 +61,13 @@
       return;
     }
     $('#dashboard_name')[0].innerHTML = tableau.extensions.settings.get("dashboard_name");
-    $('#source')[0].innerHTML = tableau.extensions.settings.get("source");
-    $('#major_source')[0].innerHTML =tableau.extensions.settings.get("source");
-    $('#owner')[0].innerHTML = tableau.extensions.settings.get("owner");
-    $('#techowner')[0].innerHTML = tableau.extensions.settings.get("techowner");
-    $('#department')[0].innerHTML = tableau.extensions.settings.get("department");
+    $('#source').text( tableau.extensions.settings.get("source"));
+    $('#major_source').text( tableau.extensions.settings.get("source"));
+    $('#owner').text( tableau.extensions.settings.get("owner"));
+    $('#techowner').text( tableau.extensions.settings.get("techowner"));
+    $('#department').text(tableau.extensions.settings.get("department"));
     $('#refresh')[0].innerHTML = tableau.extensions.settings.get("refresh");
+    $('#refresh_div')[0].innerHTML = tableau.extensions.settings.get("refresh");
     $('#staticfile')[0].innerHTML = tableau.extensions.settings.get("staticfile");
     // console.log("Loaded worksheet:", sheetName);
     //if (sheetName) { $('#configure').hide(); }
