@@ -2,7 +2,7 @@
   let worksheet;
   $(document).ready(function () {
     tableau.extensions.initializeAsync().then(function () {
-
+       loadSelectedSheet();
       document.getElementById("configure").addEventListener("click", openConfig);
       if (
         tableau.extensions.environment.mode ===
