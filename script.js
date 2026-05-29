@@ -44,7 +44,7 @@
     searchtext = document.getElementById('metricSearch').value.toLowerCase();
     renderTable();
   }
-  function filterrows() {
+  window.filterrows=function() {
     return all_rows.filter(d => {
       const mBU = selected_ds === "All" || d.Data_Source === selected_ds;
       const mSrch = !searchtext || d.KPI.toLowerCase().includes(searchtext) || d.Data_Source.toLowerCase().includes(searchtext);
@@ -101,7 +101,7 @@
         )
       ];
       document.getElementById('source_count').textContent = distinctDataSources.length;
-      let ds_html = '<div class="chip active" onclick="setFilter(&#39;ALL&#39;,this)">All</div>';
+      let ds_html = '<div class="chip active" onclick="setFilter(&#39;All&#39;,this)">All</div>';
       distinctDataSources.forEach(ds => {
         ds_html += `<div class="chip" onclick="setFilter('${ds}',this)">${ds}</div>`
       });
